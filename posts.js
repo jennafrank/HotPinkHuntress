@@ -13,11 +13,11 @@ const POSTS = [
     category: "apt",
     categoryDisplay: "APT Tracking",
     tags: ["apt", "threat-intel", "ics", "scada"],
-    excerpt: "Over the past six months, I've been tracking an intrusion set I'm calling VELVET STORM — a cluster of activity targeting energy and utilities infrastructure across Southeast Asia and Eastern Europe. Their tooling is sparse, their discipline is high, and they've been largely invisible until now.",
+    excerpt: "Over the past six months, we've been tracking an intrusion set we're calling VELVET STORM — a cluster of activity targeting energy and utilities infrastructure across Southeast Asia and Eastern Europe. Their tooling is sparse, their discipline is high, and they've been largely invisible until now.",
     featured: true,
     readTime: "12 min",
     content: `
-<p>Over the past six months, I've been tracking an intrusion set I'm calling <strong>VELVET STORM</strong> — a cluster of activity targeting energy and utilities infrastructure across Southeast Asia and Eastern Europe. Their tooling is sparse, their discipline is high, and they've been largely invisible until now.</p>
+<p>Over the past six months, we've been tracking an intrusion set we're calling <strong>VELVET STORM</strong> — a cluster of activity targeting energy and utilities infrastructure across Southeast Asia and Eastern Europe. Their tooling is sparse, their discipline is high, and they've been largely invisible until now.</p>
 
 <h2>Initial Discovery</h2>
 <p>The cluster first came to my attention through a series of <strong>unusual WMI event subscription persistence mechanisms</strong> appearing in hunting queries across multiple victim environments. The technique itself isn't novel — defenders have been tracking WMI abuse since at least 2017 — but the specific implementation and the combination with their network infrastructure made this stand out.</p>
@@ -52,24 +52,24 @@ AND TargetInstance.Minute = 14</pre>
 <p>Observed tooling includes custom implants written in Go (making cross-platform deployment trivial), a modified open-source RAT with obfuscated C2 communication, extensive use of native Windows utilities for lateral movement, and custom credential harvesting tooling that targets industrial historian databases specifically.</p>
 
 <h2>Attribution Assessment</h2>
-<p>I assess with <strong>moderate confidence</strong> that VELVET STORM is a state-nexus threat actor operating in alignment with the strategic interests of a Southeast Asian nation-state. The targeting profile (energy infrastructure, long dwell times, intelligence collection vs. disruption) and operational tempo both align with this assessment.</p>
+<p>We assess with <strong>moderate confidence</strong> that VELVET STORM is a state-nexus threat actor operating in alignment with the strategic interests of a Southeast Asian nation-state. The targeting profile (energy infrastructure, long dwell times, intelligence collection vs. disruption) and operational tempo both align with this assessment.</p>
 
-<p>I'm deliberately withholding the specific country attribution from this public report, as I'm working with affected organizations on remediation and don't want to complicate ongoing diplomatic considerations.</p>
+<p>We're deliberately withholding the specific country attribution from this public report, as we're working with affected organizations on remediation and don't want to complicate ongoing diplomatic considerations.</p>
 
 <h2>Detection Opportunities</h2>
-<p>For defenders, the highest-fidelity detection opportunities I've identified are the WMI subscription pattern described above, DNS queries to domains matching the observed naming convention, and anomalous historian database access patterns from non-engineering workstations.</p>
+<p>For defenders, the highest-fidelity detection opportunities we've identified are the WMI subscription pattern described above, DNS queries to domains matching the observed naming convention, and anomalous historian database access patterns from non-engineering workstations.</p>
 
 <p>A Sigma rule for the WMI persistence and YARA signatures for the Go implants are available in the companion GitHub repository linked below.</p>
 
 <h2>Conclusion</h2>
-<p>VELVET STORM represents a patient, disciplined threat actor that has been operating below the radar of most threat intelligence providers. The energy sector should treat this as an active and ongoing threat. If you're seeing unexplained WMI subscriptions firing in the early hours of the morning, I want to hear from you.</p>
+<p>VELVET STORM represents a patient, disciplined threat actor that has been operating below the radar of most threat intelligence providers. The energy sector should treat this as an active and ongoing threat. If you're seeing unexplained WMI subscriptions firing in the early hours of the morning, we want to hear from you.</p>
     `
   },
   {
     id: "yara-rules-golang-malware",
     slug: "yara-rules-golang-malware",
     title: "Writing Effective YARA Rules for Golang Malware: A Field Guide",
-    subtitle: "Go-compiled malware presents unique challenges for signature writers. Here's what I've learned from analyzing 200+ Go-based implants.",
+    subtitle: "Go-compiled malware presents unique challenges for signature writers. Here's what we've learned from analyzing 200+ Go-based implants.",
     date: "2025-04-22",
     dateDisplay: "Apr 22, 2025",
     category: "detection",
@@ -126,7 +126,7 @@ AND TargetInstance.Minute = 14</pre>
 <blockquote>A YARA rule that never fires because malware evolved around it isn't protecting anyone. Build layered detection: static signatures for the lazy malware, behavioral rules for the sophisticated stuff.</blockquote>
 
 <h2>Complete Example: SlipperySlope RAT Family</h2>
-<p>Here's a complete detection rule for a Go RAT family I've been tracking. This catches all observed variants across three threat actor clusters:</p>
+<p>Here's a complete detection rule for a Go RAT family we've been tracking. This catches all observed variants across three threat actor clusters:</p>
 
 <pre>rule HPH_GO_SlipperySlope_RAT {
     meta:
@@ -161,13 +161,13 @@ AND TargetInstance.Minute = 14</pre>
     category: "detection",
     categoryDisplay: "Detection Eng",
     tags: ["detection", "sigma", "lateral-movement", "dfir"],
-    excerpt: "Bad detection rules are worse than no detection rules. They create alert fatigue, burn analyst capacity, and give false confidence. Here are the lateral movement Sigma rules I've refined over hundreds of real hunts — plus the reasoning behind each one.",
+    excerpt: "Bad detection rules are worse than no detection rules. They create alert fatigue, burn analyst capacity, and give false confidence. Here are the lateral movement Sigma rules we've refined over hundreds of real hunts — plus the reasoning behind each one.",
     featured: false,
     readTime: "14 min",
     content: `
 <p>Bad detection rules are worse than no detection rules. They create alert fatigue, burn analyst capacity, and give defenders false confidence in their coverage. The worst thing I see in mature SOCs isn't gaps in detection — it's rules that fire constantly on benign activity until analysts start silently ignoring entire alert categories.</p>
 
-<p>These are the lateral movement Sigma rules I've refined through hundreds of real hunting engagements, with the logic behind every design decision.</p>
+<p>These are the lateral movement Sigma rules we've refined through hundreds of real hunting engagements, with the logic behind every design decision.</p>
 
 <h2>Rule Design Philosophy</h2>
 <p>Before the rules themselves, the philosophy: <strong>specificity beats sensitivity when you're resource-constrained</strong>. A rule with a 95% true positive rate that catches 60% of malicious activity is more valuable than a rule with 40% true positive rate that catches 90%.</p>
@@ -258,11 +258,11 @@ level: high</pre>
     category: "threat-intel",
     categoryDisplay: "Threat Intel",
     tags: ["threat-intel", "lotl", "detection", "windows"],
-    excerpt: "In every IR case I've worked in the past two years, the attacker used at least one Living Off the Land technique. PowerShell, WMI, certutil, mshta — legitimate Windows tools turned into weapons. This is why your signature-based AV isn't enough.",
+    excerpt: "In every IR case we've worked in the past two years, the attacker used at least one Living Off the Land technique. PowerShell, WMI, certutil, mshta — legitimate Windows tools turned into weapons. This is why your signature-based AV isn't enough.",
     featured: false,
     readTime: "10 min",
     content: `
-<p>In every incident response case I've worked in the past two years, the attacker used at least one Living-off-the-Land (LoTL) technique. The trend isn't new, but it's accelerating — and defenses aren't keeping pace.</p>
+<p>In every incident response case we've worked in the past two years, the attacker used at least one Living-off-the-Land (LoTL) technique. The trend isn't new, but it's accelerating — and defenses aren't keeping pace.</p>
 
 <h2>Why LoTL Works</h2>
 <p>The appeal is simple from an attacker's perspective. <strong>Using built-in tools means no malware to detect, no tooling to attribute, and no AV signatures to evade</strong> — because there's nothing to flag as malicious. You're using the same tools that admins use, just for different purposes.</p>
@@ -299,7 +299,7 @@ level: high</pre>
     id: "ransomware-pre-deployment-iocs",
     slug: "ransomware-pre-deployment-iocs",
     title: "The 72 Hours Before Ransomware Drops: IOCs That Could Save Your Network",
-    subtitle: "Ransomware operators spend days inside a network before encrypting. These are the pre-deployment indicators I've documented across 30+ cases.",
+    subtitle: "Ransomware operators spend days inside a network before encrypting. These are the pre-deployment indicators we've documented across 30+ cases.",
     date: "2025-03-02",
     dateDisplay: "Mar 2, 2025",
     category: "dfir",
@@ -311,7 +311,7 @@ level: high</pre>
     content: `
 <p>Ransomware doesn't materialize out of nowhere. Modern ransomware operations have a predictable playbook, and there's almost always a 2-7 day window between initial compromise and encryption where alert defenders can intervene.</p>
 
-<p>Across 30+ ransomware incident response cases I've been involved in, I've documented the pre-deployment indicators that consistently appear. Many victims had visibility into these signals — they just weren't prioritizing them.</p>
+<p>Across 30+ ransomware incident response cases we've been involved in, we've documented the pre-deployment indicators that consistently appear. Many victims had visibility into these signals — they just weren't prioritizing them.</p>
 
 <h2>The Typical Timeline</h2>
 <p>Day 1-2: Initial access and persistence establishment. Operators verify access, establish redundant persistence mechanisms, and begin internal reconnaissance.</p>
@@ -382,7 +382,7 @@ wbadmin delete catalog -quiet</pre>
 <p>This is where purple teaming and adversary emulation become essential. You need to validate your ATT&CK coverage with real techniques, not theoretical coverage.</p>
 
 <h2>Using ATT&CK for Hunt Development</h2>
-<p>Where ATT&CK genuinely shines is as a structured vocabulary for hunt hypothesis development. When I'm planning a threat hunt, I'll pick a specific threat actor, pull their documented techniques from ATT&CK, and develop hunt hypotheses around each technique and sub-technique.</p>
+<p>Where ATT&CK genuinely shines is as a structured vocabulary for hunt hypothesis development. When we're planning a threat hunt, we'll pick a specific threat actor, pull their documented techniques from ATT&CK, and develop hunt hypotheses around each technique and sub-technique.</p>
 
 <p>This is threat-informed hunting — you're not randomly looking for anomalies, you're looking for specific behaviors that known threat actors have used. The precision of ATT&CK mapping makes this scalable and repeatable.</p>
     `
