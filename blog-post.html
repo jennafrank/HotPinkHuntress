@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Post | Hot Pink Huntress</title>
+  <meta name="description" id="pageDesc" content="" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>🎯</text></svg>" />
+</head>
+<body class="grid-bg">
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">HPH<span>∴</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- POST HERO -->
+  <header class="post-hero" id="postHero">
+    <div class="post-hero-inner">
+      <a href="blog.html" class="back-to-blog">Back to Blog</a>
+      <div class="blog-meta" id="postMeta">
+        <!-- Populated by JS -->
+      </div>
+      <h1 class="post-title" id="postTitle">Loading...</h1>
+      <p class="post-subtitle" id="postSubtitle"></p>
+    </div>
+  </header>
+
+  <!-- READING PROGRESS BAR -->
+  <div style="position:fixed;top:64px;left:0;right:0;height:2px;background:rgba(255,45,120,0.1);z-index:999;">
+    <div id="progressBar" style="height:100%;background:linear-gradient(90deg,var(--hot-pink),var(--mint));width:0%;transition:width 0.1s;box-shadow:0 0 8px var(--pink-glow);"></div>
+  </div>
+
+  <!-- POST BODY -->
+  <article class="post-body">
+    <div class="post-content" id="postContent">
+      <!-- Populated by JS -->
+    </div>
+  </article>
+
+  <!-- RELATED POSTS -->
+  <section class="related-posts">
+    <div class="related-inner">
+      <div class="section-label" style="margin-bottom:1.5rem;">More From the Blog</div>
+      <div class="blog-grid" id="relatedPosts" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name">HPH∴</span>
+        <p class="brand-tagline">Hot Pink Huntress — threat intelligence, adversary research, and defensive security.</p>
+        <div class="social-links" style="margin-top:1.5rem;">
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="GitHub">⌥</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="RSS">◎</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="blog.html?tag=threat-intel">Threat Intel</a></li>
+          <li><a href="blog.html?tag=malware">Malware Analysis</a></li>
+          <li><a href="blog.html?tag=apt">APT Tracking</a></li>
+          <li><a href="blog.html?tag=detection">Detection Eng</a></li>
+          <li><a href="blog.html?tag=dfir">DFIR</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@hotpinkhuntress.com">Email Me</a></li>
+          <li><a href="#">Signal</a></li>
+          <li><a href="#">PGP Key</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 <span class="accent">Hot Pink Huntress</span> — hotpinkhuntress.com</p>
+      <p style="font-family:var(--font-pixel);font-size:0.85rem;color:rgba(255,45,120,0.4);">STAY HUNTING. STAY PINK. ∴</p>
+    </div>
+  </footer>
+
+  <script src="posts.js"></script>
+  <script>
+  (function () {
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    }
+
+    // Reading progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop    = window.scrollY;
+      const docHeight    = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = scrollPercent + '%';
+    }, { passive: true });
+
+    // Get post ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const postId = params.get('id');
+
+    if (!postId || typeof POSTS === 'undefined') {
+      document.getElementById('postTitle').textContent = 'Post not found.';
+      return;
+    }
+
+    const post = POSTS.find(p => p.id === postId);
+    if (!post) {
+      document.getElementById('postTitle').textContent = 'Post not found.';
+      document.getElementById('postContent').innerHTML = `
+        <p>This post doesn't exist. <a href="blog.html">Browse all posts.</a></p>
+      `;
+      return;
+    }
+
+    // Update page meta
+    document.getElementById('pageTitle').textContent = post.title + ' | Hot Pink Huntress';
+    document.getElementById('pageDesc').setAttribute('content', post.excerpt);
+
+    // Populate hero
+    document.getElementById('postMeta').innerHTML = `
+      <span class="blog-date">${post.dateDisplay}</span>
+      <span class="blog-tag">${post.categoryDisplay}</span>
+      ${post.tags.map(t => `<span class="blog-tag" style="opacity:0.7;">${t}</span>`).join('')}
+      <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-dim);">${post.readTime} read</span>
+    `;
+    document.getElementById('postTitle').textContent = post.title;
+    document.getElementById('postSubtitle').textContent = post.subtitle || '';
+
+    // Populate content
+    document.getElementById('postContent').innerHTML = post.content;
+
+    // Related posts (same category, exclude current)
+    const related = POSTS
+      .filter(p => p.id !== post.id && (p.category === post.category || p.tags.some(t => post.tags.includes(t))))
+      .slice(0, 3);
+
+    const relatedEl = document.getElementById('relatedPosts');
+    if (related.length) {
+      relatedEl.innerHTML = related.map(p => `
+        <article class="blog-card">
+          <div class="blog-card-header">
+            <div class="blog-meta">
+              <span class="blog-date">${p.dateDisplay}</span>
+              <span class="blog-tag">${p.categoryDisplay}</span>
+            </div>
+            <h3 class="blog-card-title">${p.title}</h3>
+          </div>
+          <p class="blog-card-excerpt">${p.excerpt.substring(0, 140)}...</p>
+          <div class="blog-card-footer">
+            <a href="blog-post.html?id=${p.id}" class="read-more">Read more</a>
+          </div>
+        </article>
+      `).join('');
+    } else {
+      relatedEl.innerHTML = `<p style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text-dim);">No related posts found. <a href="blog.html">Browse all posts.</a></p>`;
+    }
+
+    // Syntax highlight simulation: wrap pre/code blocks
+    document.querySelectorAll('.post-content pre').forEach(pre => {
+      pre.style.position = 'relative';
+      const lang = document.createElement('span');
+      lang.style.cssText = `
+        position:absolute;top:0.6rem;right:0.8rem;
+        font-family:var(--font-pixel);font-size:0.7rem;
+        color:rgba(255,45,120,0.5);letter-spacing:0.1em;
+      `;
+      lang.textContent = 'CODE';
+      pre.appendChild(lang);
+    });
+  })();
+  </script>
+</body>
+</html>

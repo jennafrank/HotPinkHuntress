@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Hot Pink Huntress</title>
+  <meta name="description" content="Threat intelligence, malware analysis, detection engineering, and adversary research. Open-source security knowledge from Hot Pink Huntress." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>🎯</text></svg>" />
+</head>
+<body class="grid-bg">
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">HPH<span>∴</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-inner">
+      <div class="section-label">Intelligence &amp; Research</div>
+      <h1 class="section-title" style="font-size:clamp(2rem,5vw,3.2rem);margin-bottom:0.8rem;">
+        THE <span class="glow-pink">BLOG</span>
+      </h1>
+      <p style="font-family:var(--font-mono);font-size:0.92rem;color:var(--text-dim);max-width:520px;line-height:1.8;">
+        Threat intelligence reports, detection engineering tutorials, malware analysis, and adversary research.
+        All open source. All practical.
+      </p>
+    </div>
+  </div>
+
+  <!-- SEARCH & FILTER -->
+  <div class="blog-controls" id="blogControls">
+    <div class="blog-controls-inner">
+      <div class="search-box">
+        <span class="search-icon">⌕</span>
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search posts..."
+          aria-label="Search blog posts"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="filter-tags" id="filterTags" role="group" aria-label="Filter by category">
+        <button class="filter-tag active" data-tag="all">All</button>
+        <button class="filter-tag" data-tag="threat-intel">Threat Intel</button>
+        <button class="filter-tag" data-tag="malware">Malware</button>
+        <button class="filter-tag" data-tag="detection">Detection Eng</button>
+        <button class="filter-tag" data-tag="apt">APT</button>
+        <button class="filter-tag" data-tag="dfir">DFIR</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- BLOG LISTING -->
+  <main class="blog-main">
+    <div class="blog-listing">
+      <p class="blog-count" id="blogCount">
+        Showing <span id="countNum">0</span> posts
+      </p>
+
+      <div class="blog-listing-grid" id="blogGrid">
+        <!-- Populated by JS -->
+      </div>
+
+      <div class="no-results" id="noResults">
+        <p>// NO_RESULTS_FOUND</p>
+        <span>Try a different search or filter.</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name">HPH∴</span>
+        <p class="brand-tagline">Hot Pink Huntress — threat intelligence, adversary research, and defensive security.</p>
+        <div class="social-links" style="margin-top:1.5rem;">
+          <a href="#" class="social-link" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-link" aria-label="GitHub">⌥</a>
+          <a href="#" class="social-link" aria-label="LinkedIn">in</a>
+          <a href="#" class="social-link" aria-label="RSS">◎</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Navigate</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Topics</h4>
+        <ul>
+          <li><a href="#" onclick="filterByTag('threat-intel');return false;">Threat Intel</a></li>
+          <li><a href="#" onclick="filterByTag('malware');return false;">Malware Analysis</a></li>
+          <li><a href="#" onclick="filterByTag('apt');return false;">APT Tracking</a></li>
+          <li><a href="#" onclick="filterByTag('detection');return false;">Detection Eng</a></li>
+          <li><a href="#" onclick="filterByTag('dfir');return false;">DFIR</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@hotpinkhuntress.com">Email Me</a></li>
+          <li><a href="#">Signal</a></li>
+          <li><a href="#">PGP Key</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 <span class="accent">Hot Pink Huntress</span> — hotpinkhuntress.com</p>
+      <p style="font-family:var(--font-pixel);font-size:0.85rem;color:rgba(255,20,147,0.4);">STAY HUNTING. STAY PINK. ∴</p>
+    </div>
+  </footer>
+
+  <script src="posts.js"></script>
+  <script src="blog.js"></script>
+  <script>
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks  = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    }
+
+    // Allow footer tag links to work
+    function filterByTag(tag) {
+      window.scrollTo({ top: document.getElementById('blogControls').offsetTop - 70, behavior: 'smooth' });
+      const btn = document.querySelector(`.filter-tag[data-tag="${tag}"]`);
+      if (btn) btn.click();
+    }
+  </script>
+</body>
+</html>
